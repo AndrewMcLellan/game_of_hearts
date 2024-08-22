@@ -85,9 +85,17 @@ class GameSetup {
       const cardsWrapper = document.getElementById(`player-${player.id}-cards`);
 
       player.cards.cards.forEach(card => {
-        const cardEl = document.createElement('div');
-        cardEl.innerHTML = card;
-        cardsWrapper.appendChild(cardEl);
+        // const cardEl = document.createElement('div');
+        const cardImg = document.createElement('img');
+        const cardButton = document.createElement('button');
+
+        cardImg.src = `./assets/images/${cardImageMapping[card]}`
+        cardImg.width = '100'
+
+
+        cardButton.appendChild(cardImg);
+
+        cardsWrapper.appendChild(cardButton);
       })
 
       currentElement.appendChild(cardsWrapper);

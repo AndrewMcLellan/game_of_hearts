@@ -1,3 +1,11 @@
 .join-button {
   cursor: pointer;
 }
+
+.player-cards {
+  display: flex;
+}
+
+.player-cards button {
+  cursor: pointer;
+}
