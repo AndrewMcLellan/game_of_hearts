@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/main.css">
+  <title>Hearts Game</title>
+</head>
+
+<body>
+  <h1>Hearts Game</h1>
+  <div id="player-info-inputs">
+    <div id="name-input-wrapper">
+      <label>
+        Name:
+        <input id="name-input" type="text" />
+      </label>
+      <div>
+        <button disabled id="join-button" class="join-button">Join Game</button>
+      </div>
+      <label>
+        Ready?
+        <button id="deal-button">Deal</button>
+      </label>
+    </div>
+    <div id="players">
+      <div id="player-1">
+        <label id="player-1-label">
+
+        </label>
+        <div id="player-1-cards"></div>
+      </div>
+      <div id="player-2">
+        <label id="player-2-label">
+
+        </label>
+        <div id="player-2-cards"></div>
+      </div>
+      <div id="player-3">
+        <label id="player-3-label">
+
+        </label>
+        <div id="player-3-cards"></div>
+      </div>
+      <div id="player-4">
+        <label id="player-4-label">
+
+        </label>
+        <div id="player-4-cards"></div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/gameSetup.js"></script>
+  <script src="./js/game.js"></script>
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onopen = () => {
+      console.log('Connected to the server');
+      // Send a test message to the server
+      ws.send(JSON.stringify({ action: 'test', data: { message: 'Hello, server!' } }));
+    };
+
+    ws.onmessage = (event) => {
+      console.log('Message from server:', event.data);
+    };
+
+    const game = new HeartsGame({ webSocket: ws })
+  </script>
+
+</body>
+
+</html>
