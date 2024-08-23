@@ -31,6 +31,9 @@ class GameSetup {
 
     if (messageData.message === 'cardsDealt') {
       this.renderCards(messageData);
+
+      const cardsDealtEvent = new CustomEvent('cards-dealt', { detail: messageData });
+      document.dispatchEvent(cardsDealtEvent)
     }
   }
 
@@ -77,6 +80,7 @@ class GameSetup {
   renderCards = (messageData) => {
     const { players } = messageData;
     const player = players.find(p => !!p.cards);
+    const nonCurrentPlayers = players.filter(p => !p.cards);
     const currentPlayerPrefix = `player-${player.id}`
     const currentElement = document.getElementById(currentPlayerPrefix);
 
@@ -89,6 +93,10 @@ class GameSetup {
         const cardImg = document.createElement('img');
         const cardButton = document.createElement('button');
 
+        cardButton.classList.add('current-player-card');
+        cardButton.value = card;
+        cardButton.name = card;
+
         cardImg.src = `./assets/images/${cardImageMapping[card]}`
         cardImg.width = '100'
 
@@ -100,6 +108,26 @@ class GameSetup {
 
       currentElement.appendChild(cardsWrapper);
     }
+
+    nonCurrentPlayers.forEach(p => {
+      const playerElement = document.getElementById(`player-${p.id}`)
+      const cardsWrapper = document.getElementById(`player-${p.id}-cards`);
+
+      for (let i = 0; i <= p.remainingCards; i++) {
+        const cardContainer = document.createElement('div');
+        const cardImg = document.createElement('img');
+
+        cardContainer.classList.add('player-card');
+
+        cardImg.src = `./assets/images/${cardImageMapping['back']}`;
+        cardImg.width = '100';
+
+        cardContainer.appendChild(cardImg)
+        cardsWrapper.appendChild(cardContainer);
+        playerElement.appendChild(cardsWrapper);
+      }
+    })
+
   }
 
   handlePlayerJoin = (messageData) => {

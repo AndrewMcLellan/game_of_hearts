@@ -9,3 +9,12 @@
 .player-cards button {
   cursor: pointer;
 }
+
+.player-card,
+.current-player-card {
+  position: relative;
+}
+
+.current-player-card .selected {
+  top: -20px;
+}

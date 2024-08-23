@@ -1,13 +1,14 @@
 const gameState = require('../models/gameState');
 const cardUtils = require('../utils/cardUtils');
 
-const { gameProperties, updateGameProperties, initializeGame } = gameState;
+const { gameProperties, updateGameProperties, initializeGame, selectCardsToPass } = gameState;
 
 const handleGameAction = (webSocket, message) => {
   switch (message.action) {
-    case 'passCard':
-      console.log('card passed by player');
-      //add logic here
+    case 'passCards':
+      console.log('card passed by player', message);
+      selectCardsToPass(webSocket, message.data.cards);
+      console.log('gameProperties +++++++++', gameProperties.cards[0].cards);
       break;
     case 'playCard':
       console.log('player played card');
@@ -19,6 +20,8 @@ const handleGameAction = (webSocket, message) => {
       initializeGame(webSocket)
       break;
   }
+
+
 };
 
 const handlePlayerDisconnect = (webSocket) => {

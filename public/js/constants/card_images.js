@@ -50,5 +50,6 @@ const cardImageMapping = {
   'JS': 'jack_of_spades.png',
   'QS': 'queen_of_spades.png',
   'KS': 'king_of_spades.png',
-  'AS': 'ace_of_spades.png'
+  'AS': 'ace_of_spades.png',
+  'back': 'card_back_red.png'
 };
